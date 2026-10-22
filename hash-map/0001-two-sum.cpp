@@ -15,7 +15,7 @@
  *   then its valid and you return that and index. If previous condition ins't met the value is added to hashmap and loop continues.
  *
  * Comparison with other solutions:
- *  The Optimal solution uses slightly more space for marginally better time complexity.
+ *  The Optimal solution uses slightly more space for way better time complexity.
  *
  * Takeaways:
  *  Hashmap is useful when searching for past elements, removed second loop/search.
@@ -24,6 +24,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <unordered_map>
+
 
 using namespace std;
 
@@ -32,7 +34,7 @@ vector<int> brute(vector<int>& nums, int target) {
     int n = nums.size();
     
     for (int i = 0; i < n; i++) {
-        for (int j = i + 1; j < n; i++) {
+        for (int j = i + 1; j < n; j++) {
             if (nums[i] + nums[j] == target) {
                 return {i, j};
             }
