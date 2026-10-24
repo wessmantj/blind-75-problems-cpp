@@ -5,22 +5,22 @@
  * Status: Solved | Solved without outside help: Yes
  *
  * Problem (in my own words):
+ * Remove the nth node counting backward from the end of a singly linked list, then return the 
+ * possibly updated head.
  *
+ * Brute:   Time O(2n)  Space O(1)
+ *   Idea: First count the total number of nodes, then find the position of the node to be removed.
+ *  Traverse the list again and reach the previous node; change its next pounter to skip the removal node. Watch for n == length, since node to remove would be head.
  *
- * Brute:   Time O(?)  Space O(?)
- *   Idea:
- *
- * Better:  Time O(?)  Space O(?)
- *   Idea:
- *
- * Optimal: Time O(?)  Space O(?)
- *   Idea:
+ * Optimal: Time O(n)  Space O(1)
+ *   Idea: Use a dummy/temp node before head and start fast and slow at the dummy. Slow will end off before the target so we can unlink and delete.
  *
  * Comparison with other solutions:
- *
+ *  They both have the same asymptotic complexity, but the two-pointer  avoids the list length count first and removes the special
+ *  case for deleting head. So just a clean up that avoids manual allocation.
  *
  * Takeaways:
- *
+ * To delete a node, you find the previous one. Still needed help so next linked list I hopefully solve on my own.
  */
 
 #include <iostream>
@@ -39,20 +39,65 @@ struct ListNode {
 
 // ---------- Brute ----------
 ListNode* brute(ListNode* head, int n) {
-    // TODO
-    return nullptr;
-}
+    if (head == nullptr || head->next == nullptr) return nullptr;
 
-// ---------- Better ----------
-ListNode* better(ListNode* head, int n) {
-    // TODO
-    return nullptr;
+    int cnt = 0;
+    ListNode* temp = head;
+
+    while (temp) {
+        temp = temp->next;
+        cnt++;
+    }
+
+    if (n == cnt) {
+        ListNode* delNode = head;
+        head = head->next;
+        delete delNode;
+
+        return head;
+    }
+    int x = cnt - n;
+    temp = head;
+
+    while (--x) {
+        temp = temp->next;
+    }
+
+    ListNode* delNode = temp->next;
+    temp->next = temp->next->next;
+    delete delNode;
+
+    return head;
 }
 
 // ---------- Optimal ----------
 ListNode* optimal(ListNode* head, int n) {
-    // TODO
-    return nullptr;
+    ListNode* dummyNode = new ListNode(-1);
+    dummyNode->next = head;
+    ListNode* fast = dummyNode;
+    ListNode* slow = dummyNode;
+
+    while (n--) fast = fast->next;
+
+    if (fast == nullptr) {
+        ListNode* newNode = head->next;
+        delete head;
+        delete dummyNode;
+        return newNode;
+    }
+
+    while (fast->next != nullptr) {
+        fast = fast->next;
+        slow = slow->next;
+    }
+
+    ListNode* delNode = slow->next;
+    slow->next = slow->next->next;
+    delete delNode;
+    ListNode* newHead = dummyNode->next;
+    delete dummyNode;
+
+    return newHead;
 }
 
 ListNode* build(const vector<int>& vals) {
