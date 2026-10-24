@@ -2,7 +2,7 @@
  * 5. Longest Palindromic Substring
  * https://leetcode.com/problems/longest-palindromic-substring/
  * Difficulty: Medium | Pattern: Two Pointers (expand around center)
- * Status: Solved | Solved without outside help: Yes
+ * Status: Solved | Solved without outside help: No
  *
  * Problem (in my own words):
  * In a given input string, find a substring that 1) each mirrored char is the same 2) odd or even

@@ -2,7 +2,7 @@
  * 1. Two Sum
  * https://leetcode.com/problems/two-sum/
  * Difficulty: Easy | Pattern: Hash Map
- * Status: Solved | Solved without outside help: Yes
+ * Status: Solved | Solved without outside help: No
  *
  * Problem (in my own words):
  *  Given an integer array, return the indices of two numbers that add up to a given target. Two conditionals is you cannot use
